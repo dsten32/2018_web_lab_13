@@ -29,7 +29,7 @@ public class Exercise01 {
                 title = sc.nextLine();
 
                 try (PreparedStatement pStmt = conn.prepareStatement(
-                        "SELECT * FROM lab13_articles WHERE title LIKE ?;")) {
+                        "SELECT * FROM lab13_articles WHERE title LIKE ?")) {
                     pStmt.setString(1, "%" + title + "%");
 
 
