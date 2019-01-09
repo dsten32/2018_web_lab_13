@@ -15,7 +15,7 @@ FROM pfilms_film AS film,
      pfilms_role as role,
      pfilms_actor as actor,
      pfilms_participates_in as is_in
-WHERE actor.actor_fname = 'Keanu' OR actor.actor_lname ='Keanu'
+WHERE actor.actor_fname = 'Keanu'
   AND actor.actor_id = is_in.actor_id
   AND is_in.role_id = role.role_id
   AND is_in.film_id = film.film_id;
@@ -49,3 +49,7 @@ AND is_in.actor_id = actor.actor_id;
 SELECT film.film_title, film.genre_name
 FROM pfilms.film AS film
 WHERE film.genre_name = 'user input';
+
+#getting all the actors w/deets in a table
+SELECT *
+FROM pfilms_actor

@@ -24,10 +24,6 @@ public class FilmApp {
             e.printStackTrace();
         }
 
-
-
-
-
         // Set the database name to your database
         try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
             System.out.println("Connection successful");

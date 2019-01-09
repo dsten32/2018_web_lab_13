@@ -1,14 +1,17 @@
 package ictgradschool.web.lab13.ex2;
 
+import java.util.List;
+
 public class Actor {
     private int id;
     private String fname,lname;
+    private List<String> movieRoles;
 
-    public Actor(int id, String fname, String lname){
-        this.fname = fname;
-        this.lname = lname;
-        this.id = id;
-    }
+//    public Actor(int id, String fname, String lname){
+//        this.fname = fname;
+//        this.lname = lname;
+//        this.id = id;
+//    }
 
     public int getId() {
         return id;
@@ -34,4 +37,11 @@ public class Actor {
         this.lname = lname;
     }
 
+    public List<String> getMovieRoles() {
+        return movieRoles;
+    }
+
+    public void setMovieRoles(List<String> movieRoles) {
+        this.movieRoles = movieRoles;
+    }
 }
