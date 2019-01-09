@@ -15,7 +15,7 @@ FROM pfilms_film AS film,
      pfilms_role as role,
      pfilms_actor as actor,
      pfilms_participates_in as is_in
-WHERE actor.actor_fname = 'Keanu'
+WHERE actor.actor_fname = 'Keanu' OR actor.actor_lname ='Keanu'
   AND actor.actor_id = is_in.actor_id
   AND is_in.role_id = role.role_id
   AND is_in.film_id = film.film_id;
@@ -32,3 +32,20 @@ WHERE lect.staff_no = teach.staff_no
   AND stu.id=attend.id
   AND teach.num = attend.num
   AND teach.dept = attend.dept;
+
+# here's the query for finding the actors in a movie
+SELECT film.film_title, film.film_genre, actor.actor_fname, actor.actor_lname, role.role_name
+FROM pfilms_film AS film,
+     pfilms_role AS role,
+     pfilms_actor AS actor,
+     pfilms_participates_in AS is_in
+WHERE film.film_title = 'user input'
+AND film.film_id = is_in.film_id
+AND is_in.role_id = role.role_id
+AND is_in.actor_id = actor.actor_id;
+
+
+# next query for finding genre info
+SELECT film.film_title, film.genre_name
+FROM pfilms.film AS film
+WHERE film.genre_name = 'user input';

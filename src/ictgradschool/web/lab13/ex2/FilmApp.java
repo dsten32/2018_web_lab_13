@@ -24,6 +24,10 @@ public class FilmApp {
             e.printStackTrace();
         }
 
+
+
+
+
         // Set the database name to your database
         try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
             System.out.println("Connection successful");
@@ -46,10 +50,10 @@ public class FilmApp {
 
                         actor = sc.nextLine();
                         //setting statement as string variable, put this back in action when things are working
-                        String statement = "SELECT CONCAT(film.film_title,' (',role.role_name,') ') AS film_info,actor.actor_fname,actor.actor_lname FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_id = is_in.actor_id AND actor.actor_fname = ? AND is_in.film_id = film.film_id AND is_in.role_id = role.role_id;";
+                        String actorStatement = "SELECT CONCAT(film.film_title,' (',role.role_name,') ') AS film_info,actor.actor_fname,actor.actor_lname FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_id = is_in.actor_id AND actor.actor_fname = ? AND is_in.film_id = film.film_id AND is_in.role_id = role.role_id;";
 
                         //getting the info from actor table foe requested actor
-                        try (PreparedStatement pStmt = conn.prepareStatement(statement)) {
+                        try (PreparedStatement pStmt = conn.prepareStatement(actorStatement)) {
                             pStmt.setString(1, actor);
 
                             //getting the actor details
@@ -74,7 +78,37 @@ public class FilmApp {
 
                         return;
                     case 2:
+                        System.out.println("Please enter the name of the film you wish to\n" +
+                                "get information about, or press enter to return\n" +
+                                "to the previous menu\n");
 
+                        movie = sc.nextLine();
+                        //setting statement as string variable, put this back in action when things are working
+                        String statement = "SELECT CONCAT(film.film_title,' (',role.role_name,') ') AS film_info,actor.actor_fname,actor.actor_lname FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_id = is_in.actor_id AND actor.actor_fname = ? AND is_in.film_id = film.film_id AND is_in.role_id = role.role_id;";
+
+                        //getting the info from actor table foe requested actor
+                        try (PreparedStatement pStmt = conn.prepareStatement(statement)) {
+                            pStmt.setString(1, movie);
+
+                            //getting the actor details
+                            try (ResultSet rs = pStmt.executeQuery()) {
+                                rs.next();
+                                String retGenre = rs.getString(2);
+                                rs.previous();
+                                System.out.println("the film "+movie+" is a "+retGenre+" movie that features the following people:");
+                                while (rs.next()) {
+                                    String role = rs.getString(1);
+                                    String actorFn = rs.getString(2);
+                                    String actorLn = rs.getString(3);
+                                    System.out.println(actorFn + " " + actorLn + " ("+role+")");
+                                }
+
+                            } catch (SQLException e) {//end of resultset try block
+                                e.printStackTrace();
+                            }
+                        } catch (SQLException e1) {// End of prepare statement try block
+                            e1.printStackTrace();
+                        }
                         return;
                     case 3:
 
@@ -90,5 +124,11 @@ public class FilmApp {
             }
 
         }//end of main method
+
+
+
+    private void getActorInfo(){
+
+    }
 
     }//end of class
