@@ -54,10 +54,10 @@ public List<Actor> allActors(){
                 //populate the actors movie roles
                 for (Actor actor:actors
                      ) {
-                    try(PreparedStatement mStmt = conn.prepareStatement("SELECT film.film_title,role.role_name FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_fname = ? AND actor.actor_id = is_in.actor_id AND is_in.role_id = role.role_id AND is_in.film_id = film.film_id;")){
+                    try(PreparedStatement mStmt = conn.prepareStatement("SELECT CONCAT(film.film_title,' (',role.role_name,')') AS film_info FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_fname = ? AND actor.actor_id = is_in.actor_id AND is_in.role_id = role.role_id AND is_in.film_id = film.film_id;")){
                         mStmt.setString(1,actor.getFname());
 
-                        try (ResultSet mrs = pStmt.executeQuery()) {
+                        try (ResultSet mrs = mStmt.executeQuery()) {
                             List<String> movieRoles=new ArrayList<>();
                             while(mrs.next()){
                                 movieRoles.add(mrs.getString(1));
