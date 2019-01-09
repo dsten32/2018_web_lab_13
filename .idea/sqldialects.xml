@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/ictgradschool/web/lab13/ex1/init.sql" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/src/ictgradschool/web/lab13/ex2/pfilm.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/ictgradschool/web/lab13/ex2/trial_sql" dialect="MariaDB" />
   </component>
 </project>

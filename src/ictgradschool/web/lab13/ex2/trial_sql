@@ -1,0 +1,34 @@
+
+SELECT CONCAT(film.film_title,' (',role.role_name,')') AS film_info,actor.actor_fname,actor.actor_lname
+FROM pfilms_film AS film,
+     pfilms_role as role,
+     pfilms_actor as actor,
+     pfilms_participates_in as is_in
+WHERE actor.actor_id = is_in.actor_id
+    AND actor.actor_fname = 'Keanu'
+    AND is_in.film_id = film.film_id
+    AND is_in.role_id = role.role_id;
+
+
+SELECT film.film_title,role.role_name
+FROM pfilms_film AS film,
+     pfilms_role as role,
+     pfilms_actor as actor,
+     pfilms_participates_in as is_in
+WHERE actor.actor_fname = 'Keanu'
+  AND actor.actor_id = is_in.actor_id
+  AND is_in.role_id = role.role_id
+  AND is_in.film_id = film.film_id;
+
+
+
+SELECT DISTINCT CONCAT(stu.fname,' ',stu.lname) AS studentname
+FROM unidb_students AS stu,
+     unidb_lecturers AS lect,
+     unidb_teach AS teach,
+     unidb_attend AS attend
+WHERE lect.staff_no = teach.staff_no
+  AND lect.fname = 'Te Taka'
+  AND stu.id=attend.id
+  AND teach.num = attend.num
+  AND teach.dept = attend.dept;
