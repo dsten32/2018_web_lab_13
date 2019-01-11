@@ -1,13 +1,18 @@
 package ictgradschool.web.lab13.ex2;
 
+import java.util.List;
+
 public class Movie {
     private int id;
     private String title,genre;
+    private List<String> actorRoles;
 
-    public Movie(int id, String title, String genre){
-        this.id = id;
-        this.genre = genre;
-        this.title = title;
+    public List<String> getActorRoles() {
+        return actorRoles;
+    }
+
+    public void setActorRoles(List<String> actorRoles) {
+        this.actorRoles = actorRoles;
     }
 
     public int getId() {

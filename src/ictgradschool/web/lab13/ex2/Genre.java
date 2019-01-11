@@ -1,21 +1,19 @@
 package ictgradschool.web.lab13.ex2;
 
+import java.util.List;
+
 public class Genre {
-    private int id;
     private String genre;
+    List<String> movies;
 
-    public Genre(int id, String genre) {
-        this.id = id;
-        this.genre = genre;
+    public List<String> getMovies() {
+        return movies;
     }
 
-    public int getId() {
-        return id;
+    public void setMovies(List<String> movies) {
+        this.movies = movies;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getGenre() {
         return genre;
