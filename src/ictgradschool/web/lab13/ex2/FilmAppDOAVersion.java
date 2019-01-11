@@ -39,19 +39,22 @@ public class FilmAppDOAVersion {
                             allActors=doaA.allActors();
                             query=getQuery("actor");
 
-                            for (Actor actor:allActors
-                                 ) {
-                                if(actor.getFname().equalsIgnoreCase(query) || actor.getLname().equalsIgnoreCase(query)){
-                                    System.out.println("\n"+actor.getFname()+" "+actor.getLname()+" is listed as being involved in the following films: \n");
-                                    List<String> movies=actor.getMovieRoles();
-                                    for (String movie:movies
-                                         ) {
-                                        System.out.println(movie);
+                            while (query.length()!=0) {
+                                for (Actor actor:allActors
+                                     ) {
+                                    if(actor.getFname().equalsIgnoreCase(query) || actor.getLname().equalsIgnoreCase(query)){
+                                        System.out.println("\n"+actor.getFname()+" "+actor.getLname()+" is listed as being involved in the following films: \n");
+                                        List<String> movies=actor.getMovieRoles();
+                                        for (String movie:movies
+                                             ) {
+                                            System.out.println(movie);
+                                        }
+                                        System.out.println("\n");
                                     }
-                                    System.out.println("\n");
-                                }
-                            }//end of foreach
-                            getQuery("actor");
+                                }//end of foreach
+                                getQuery("actor");
+                            }
+//
 //                            break;
                         case 2:
                             FilmDOA doaM=new FilmDOA();
@@ -59,20 +62,22 @@ public class FilmAppDOAVersion {
                             allMovies=doaM.allMovies();
                             query=getQuery("film");
 
-                            for (Movie movie:allMovies
-                            ) {
-                                if(movie.getTitle().equalsIgnoreCase(query)){
-                                    System.out.println("\nThe film "+movie.getTitle()+" is a "+movie.getGenre()+" movie that features the following people: \n");
-                                    List<String> actors=movie.getActorRoles();
-                                    for (String actor:actors
-                                    ) {
-                                        System.out.println(actor);
+                            while (query.length()!=0) {
+                                for (Movie movie:allMovies
+                                ) {
+                                    if(movie.getTitle().equalsIgnoreCase(query)){
+                                        System.out.println("\nThe film "+movie.getTitle()+" is a "+movie.getGenre()+" movie that features the following people: \n");
+                                        List<String> actors=movie.getActorRoles();
+                                        for (String actor:actors
+                                        ) {
+                                            System.out.println(actor);
+                                        }
+                                        System.out.println("\n");
                                     }
-                                    System.out.println("\n");
-                                }
-                            }//end of foreach
+                                }//end of foreach
 
-                            query=getQuery("film");
+                                query=getQuery("film");
+                            }
                             break;
                         case 3:
                             FilmDOA doaG=new FilmDOA();
@@ -80,19 +85,21 @@ public class FilmAppDOAVersion {
                             allGenres=doaG.allGenres();
                             query=getQuery("genre");
 
-                            for (Genre genre:allGenres
-                            ) {
-                                if(genre.getGenre().equalsIgnoreCase(query)){
-                                    System.out.println("\nThe "+genre.getGenre()+" includes the following films: \n");
-                                    List<String> movies=genre.getMovies();
-                                    for (String movie:movies
-                                    ) {
-                                        System.out.println(movie);
+                            while (query.length()!=0) {
+                                for (Genre genre:allGenres
+                                ) {
+                                    if(genre.getGenre().equalsIgnoreCase(query)){
+                                        System.out.println("\nThe "+genre.getGenre()+" includes the following films: \n");
+                                        List<String> movies=genre.getMovies();
+                                        for (String movie:movies
+                                        ) {
+                                            System.out.println(movie);
+                                        }
+                                        System.out.println("\n");
                                     }
-                                    System.out.println("\n");
-                                }
-                            }//end of foreach
-                            query=getQuery("genre");
+                                }//end of foreach
+                                query=getQuery("genre");
+                            }
                             break;
                         case 4:
                             System.exit(0);
