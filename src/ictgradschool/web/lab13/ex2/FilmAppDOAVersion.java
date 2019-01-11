@@ -41,17 +41,21 @@ public class FilmAppDOAVersion {
                             List<Actor> allActors = new ArrayList<>();
                             allActors=doa.allActors();
                             query=getQuery("actor");
+
+
                             for (Actor actor:allActors
                                  ) {
-                                if(actor.getFname().equals(query) || actor.getLname().equals(query)){
+                                if(actor.getFname().equalsIgnoreCase(query) || actor.getLname().equalsIgnoreCase(query)){
+                                    System.out.println("\n"+actor.getFname()+" "+actor.getLname()+" is listed as being involved in the following films: \n");
                                     List<String> movies=actor.getMovieRoles();
                                     for (String movie:movies
                                          ) {
                                         System.out.println(movie);
                                     }
-
+                                    System.out.println("\n");
                                 }
                             }
+                            getQuery("actor");
                             break;
                         case 2:
                             query=getQuery("film");

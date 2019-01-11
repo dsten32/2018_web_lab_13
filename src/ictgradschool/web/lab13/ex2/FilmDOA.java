@@ -6,11 +6,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Callable;
 
 public class FilmDOA {
 @SuppressWarnings("Duplicates")
 public List<Actor> allActors(){
-    List<Actor> actors = new ArrayList<>();
+    final List<Actor> actors = new ArrayList<>();
     String actorName="";
 
     //set up properties object and load file containing db details, username and password
@@ -24,7 +25,7 @@ public List<Actor> allActors(){
     // Etablishing connection to db using try w/resources to ensure auto close,
     // and using properties object to supply the parameters
     try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
-        System.out.println("Connection successful");
+//        System.out.println("Connection successful");
 
         //string variable holding the query for all the things we want to know about actors
         String actorStatement = "SELECT CONCAT(film.film_title,' (',role.role_name,') ') AS film_info,actor.actor_fname,actor.actor_lname FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_id = is_in.actor_id AND actor.actor_fname = ? AND is_in.film_id = film.film_id AND is_in.role_id = role.role_id;";
@@ -54,8 +55,9 @@ public List<Actor> allActors(){
                 //populate the actors movie roles
                 for (Actor actor:actors
                      ) {
-                    try(PreparedStatement mStmt = conn.prepareStatement("SELECT CONCAT(film.film_title,' (',role.role_name,')') AS film_info FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_fname = ? AND actor.actor_id = is_in.actor_id AND is_in.role_id = role.role_id AND is_in.film_id = film.film_id;")){
+                    try(PreparedStatement mStmt = conn.prepareStatement("SELECT CONCAT(film.film_title,' (',role.role_name,')') AS film_info FROM pfilms_film AS film, pfilms_role as role, pfilms_actor as actor, pfilms_participates_in as is_in WHERE actor.actor_fname = ? AND actor.actor_lname = ? AND actor.actor_id = is_in.actor_id AND is_in.role_id = role.role_id AND is_in.film_id = film.film_id;")){
                         mStmt.setString(1,actor.getFname());
+                        mStmt.setString(2,actor.getLname());
 
                         try (ResultSet mrs = mStmt.executeQuery()) {
                             List<String> movieRoles=new ArrayList<>();
